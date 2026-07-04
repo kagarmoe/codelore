@@ -44,3 +44,7 @@ The first implementation target is an end-to-end slice on `gastown v1.1.0 -> v1.
 This repo is in founding-document and early scaffold stage. The next step is to
 turn the Phase 1 scaffold into a working `gastown v1.1.0 -> v1.2.0`
 git-first ingestion path.
+
+## License
+
+CodeLore is licensed under the Apache License 2.0. See `LICENSE`.
