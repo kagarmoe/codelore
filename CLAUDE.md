@@ -41,7 +41,10 @@ windows are the first implementation slice.
 3. Do not flatten historical context into timeless current-state facts.
 4. Do not promote categories to first-class ontology unless admission criteria
    are explicit.
-5. Prefer abstention over overclaiming.
+5. Prefer abstention over overclaiming. This rule governs what CodeLore asserts
+   in its outputs, not agent effort: an abstention is completed analysis that
+   names what is missing. It is never a reason to decline or skip work on the
+   system itself.
 6. Keep implementation narrower than the full product vision until the first
    slice is proven.
 
@@ -58,7 +61,10 @@ Optimize for:
 Read these first when orienting to the repo:
 
 - `README.md`
-- `docs/plans/00-development-plan.md`
+- `docs/glossary.md`
+- `docs/plans/00b-development-plan-evidence-first.md`
+- `docs/plans/01-automated-reasoning-plan.md`
+- `docs/plans/02-data-engineering-infrastructure-plan.md`
 - `docs/product/00-product-definition.md`
 - `docs/evidence/02-evidence-policy.md`
 - `docs/evidence/03-claim-taxonomy.md`

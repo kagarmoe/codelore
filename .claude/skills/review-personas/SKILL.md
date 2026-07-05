@@ -39,6 +39,10 @@ The current reviewer set is:
 - `Schema Skeptic (Sadalage)`
 - `Ontology Reviewer (Quine)`
 - `Ontology Reviewer (Peirce)`
+- `Repository Miner (et al.)`
+- `High-Assurance Reviewer (Cook)`
+- `Data Systems Reviewer (Kleppmann)`
+- `Plan Skeptic (Brooks)`
 
 Read [references/personas.md](references/personas.md) before using one of these
 reviewers. It defines:
@@ -47,6 +51,7 @@ reviewers. It defines:
 - main questions
 - preferred failure modes to catch
 - light writing-style guidance
+- a short bibliography: core works and their relevance to CodeLore
 
 ## How to use the personas
 
@@ -71,6 +76,17 @@ Examples:
 - sign interpretation, concept formation from evidence, meaning through
   artifacts:
   `Ontology Reviewer (Peirce)`
+- corpus assumptions, window semantics, artifact linkage quality, mining
+  methodology and tooling:
+  `Repository Miner (et al.)`
+- guarantees as checkable properties, decidability, determinism, invariants,
+  assurance kernels:
+  `High-Assurance Reviewer (Cook)`
+- storage architecture, data modeling across paradigms, query workload fit,
+  scale, streaming timing:
+  `Data Systems Reviewer (Kleppmann)`
+- plan integrity: exit criteria, gates, unpriced work, evaluator independence:
+  `Plan Skeptic (Brooks)`
 
 ### 2. State the lens in the review request
 
@@ -125,6 +141,9 @@ Good combinations:
 - `Paradigm Critic (Kuhn)` + `Product Critic (Drucker)`
 - `Ontology Reviewer (Quine)` + `Schema Skeptic (Sadalage)`
 - `Ontology Reviewer (Quine)` + `Ontology Reviewer (Peirce)`
+- `Plan Skeptic (Brooks)` + `High-Assurance Reviewer (Cook)`
+- `Repository Miner (et al.)` + `Evidence Auditor (Popper)`
+- `Data Systems Reviewer (Kleppmann)` + `Schema Skeptic (Sadalage)`
 
 Avoid duplicate lenses that mostly check the same thing.
 
@@ -137,6 +156,33 @@ Default output shape:
 3. What is weak or risky
 4. Concrete recommendations
 5. Open questions if needed
+
+## Report location
+
+Every persona review is written to `docs/reviews/` as its own markdown file —
+the file is the artifact of record; the chat summary just points at it.
+
+- Filename: `YYYY-MM-DD-<lens-slug>-review-<artifact-slug>.md`
+  (example: `2026-07-04-msr-review-00b.md`)
+- YAML frontmatter:
+
+  ```yaml
+  ---
+  title: <Lens> Review — <artifact title>
+  date: YYYY-MM-DD
+  reviewer-lens: <functional lens, not just the alias>
+  artifact: <repo-relative path of the reviewed artifact>
+  status: findings delivered | amendments applied | superseded
+  tags: [codelore, review, <lens-slug>]
+  ---
+  ```
+
+- Body follows the output shape above.
+
+When delegating a review to a subagent, instruct it to write the report file
+to `docs/reviews/` itself and return a short summary. If the subagent cannot
+write files, write the file verbatim from its returned review before
+summarizing it in chat.
 
 ## Calibration rule
 

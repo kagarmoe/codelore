@@ -17,6 +17,7 @@ The current foundation is organized around:
 
 ## Docs
 
+- `docs/glossary.md`
 - `docs/product/00-product-definition.md`
 - `docs/extraction/01-extraction-memo.md`
 - `docs/evidence/02-evidence-policy.md`
@@ -26,6 +27,9 @@ The current foundation is organized around:
 - `docs/architecture/06-schema-draft.md`
 - `docs/architecture/07-canonicalization-policy.md`
 - `docs/plans/00-development-plan.md`
+- `docs/plans/00b-development-plan-evidence-first.md`
+- `docs/plans/01-automated-reasoning-plan.md`
+- `docs/plans/02-data-engineering-infrastructure-plan.md`
 - `docs/handoffs/01-agent-handoff-prompt.md`
 
 ## Initial Target

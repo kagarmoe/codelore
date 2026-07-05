@@ -1,5 +1,12 @@
 # CodeLore Development Plan
 
+## Status
+
+Superseded 2026-07-04, preserved as historical record. The authoritative phase
+sequence is `docs/plans/00b-development-plan-evidence-first.md`, with
+`docs/plans/01-automated-reasoning-plan.md` and
+`docs/plans/02-data-engineering-infrastructure-plan.md` as companion plans.
+
 ## Goal
 
 Build the first standalone version of CodeLore as a Python system for constructing, preserving, and querying evidence-backed project memory over time.
