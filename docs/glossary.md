@@ -27,7 +27,7 @@ read any single document.
 - In evidence and ontology contexts: an epistemic governance rule about what
   CodeLore may assert and when — the evidence policy
   (`docs/evidence/02-evidence-policy.md`) and canonicalization policy
-  (`docs/architecture/07-canonicalization-policy.md`).
+  (`docs/architecture/03-identity-and-canonicalization.md`).
 - In engineering contexts: a build-and-run constraint on how the pipeline
   operates — the cross-cutting policies in the development plan
   (replayability, testing, pipeline shape).
@@ -45,8 +45,8 @@ read any single document.
 
 ### schema
 
-- The graph schema: the typed node and edge vocabulary in
-  `docs/architecture/06-schema-draft.md` — an ontology commitment.
+- The operational schema: the typed record vocabulary in
+  `docs/architecture/04-schema.md` — an ontology and data-model commitment.
 - A validation schema: the pydantic contract a record must satisfy at a stage
   boundary — an engineering contract.
 - Later, an OWL schema: the planned formal export of the ontology.
@@ -66,7 +66,7 @@ read any single document.
 - In CodeLore it means something stronger: an evidence-backed
   identity-resolution decision that window-scoped observations refer to the
   same enduring thing. It is never a name-matching shortcut. See
-  `docs/architecture/07-canonicalization-policy.md`.
+  `docs/architecture/03-identity-and-canonicalization.md`.
 - Value standardization in the data-engineering sense happens in the normalize
   pipeline stage and is called normalization, not canonicalization.
 
@@ -118,7 +118,9 @@ read any single document.
 - **Claim** — a typed, window-scoped proposition carrying evidence references,
   warrants, confidence, and status.
 - **Warrant** — the explicit, typed rule explaining why cited evidence
-  supports a claim; the term comes from Toulmin's model of argument.
+  supports a claim; the term comes from Toulmin's model of argument. A warrant
+  is not extra evidence and is not itself the claim. It is the reasoning bridge:
+  evidence plus warrant supports, contests, or fails to support a claim.
 - **Confidence** — a reflection of evidence quality (`high`, `medium`, `low`),
   never of a language model's self-assurance.
 - **Contradiction** — a preserved conflict between evidence; conflicts are
@@ -179,6 +181,10 @@ read any single document.
   by Neo4j.
 - **RDF** — the W3C triple-based data model; the planned export format for
   pack data.
+- **RDF 1.2 named reifier** — CodeLore's accepted RDF export pattern for
+  statement metadata: a stable CodeLore resource reifies a triple term with
+  `rdf:reifies` and carries evidence, warrant, confidence, and provenance
+  links. Classic RDF 1.1 reification is only a compatibility export.
 - **SKOS** — the W3C vocabulary standard for taxonomies and glossaries; the
   planned export format for CodeLore's taxonomy and glossary.
 - **OWL** — the W3C ontology language; the planned export format for the

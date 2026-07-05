@@ -196,7 +196,10 @@ work are stable enough to justify it.
 
 ## Recommended repo scaffold
 
-The current development plan already recommends this package layout:
+The authoritative development plan is
+`docs/plans/00b-development-plan-evidence-first.md`; the original
+`docs/plans/00-development-plan.md` is historical. The current package layout
+is:
 
 - `src/codelore/ingest`
 - `src/codelore/windows`

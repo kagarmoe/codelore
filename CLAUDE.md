@@ -68,8 +68,12 @@ Read these first when orienting to the repo:
 - `docs/product/00-product-definition.md`
 - `docs/evidence/02-evidence-policy.md`
 - `docs/evidence/03-claim-taxonomy.md`
-- `docs/architecture/06-schema-draft.md`
-- `docs/architecture/07-canonicalization-policy.md`
+- `docs/architecture/00-overview.md`
+- `docs/architecture/01-evidence-pack-pipeline.md`
+- `docs/architecture/02-temporal-model.md`
+- `docs/architecture/03-identity-and-canonicalization.md`
+- `docs/architecture/04-schema.md`
+- `docs/architecture/05-derived-views-and-rdf.md`
 
 ## Local Skills
 

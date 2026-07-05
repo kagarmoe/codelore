@@ -6,8 +6,12 @@ scope: CodeLore evidence-first implementation
 depends_on:
   - docs/plans/00b-development-plan-evidence-first.md
   - docs/reviews/2026-07-04-data-engineering-review-00b.md
-  - docs/architecture/06-schema-draft.md
-  - docs/architecture/07-canonicalization-policy.md
+  - docs/architecture/00-overview.md
+  - docs/architecture/01-evidence-pack-pipeline.md
+  - docs/architecture/02-temporal-model.md
+  - docs/architecture/03-identity-and-canonicalization.md
+  - docs/architecture/04-schema.md
+  - docs/architecture/05-derived-views-and-rdf.md
 ---
 
 # CodeLore Data Engineering And Infrastructure Plan
@@ -112,6 +116,8 @@ Minimum stage outputs:
 
 Rules:
 
+- Information becomes a durable record only through explicit admission rules.
+  See `docs/architecture/01-evidence-pack-pipeline.md`.
 - Each stage declares its input record types and output record types.
 - Each stage validates records at its boundary.
 - Each stage records input count, output count, drop count, and drop reasons.
@@ -216,6 +222,9 @@ produce new IDs, but replay from the same snapshots must be byte-identical.
 CodeLore needs explicit relationship records before it needs Neo4j.
 
 `LinkRecord` is the pack-side carrier of graph semantics.
+
+See `docs/architecture/01-evidence-pack-pipeline.md` for the relationship model,
+Phase 2 minimal fields, validation rules, and projection behavior.
 
 Required fields:
 
@@ -584,7 +593,7 @@ Requirements before RDF export:
 - stable IDs mappable to IRIs
 - first-class `LinkRecord`
 - window named-graph strategy
-- decision between RDF-star and standard reification
+- RDF 1.2 named reifier mapping (`rdf:reifies` over triple terms)
 - clear mapping for link metadata
 
 SKOS should describe taxonomy and glossary outputs.
@@ -775,7 +784,8 @@ Rules:
 ### Before RDF/OWL/SKOS
 
 1. Confirm stable IRI mapping.
-2. Confirm link reification strategy.
+2. Implement the accepted RDF 1.2 named reifier strategy from
+   `docs/architecture/05-derived-views-and-rdf.md`.
 3. Confirm named graph strategy for windows.
 4. Export small fixture pack first.
 5. Run formal parser/reasoner checks.
@@ -811,7 +821,7 @@ in the generator.
 ### Cross-Window Ontology Gate
 
 Admit canonical identities only when continuity evidence satisfies
-`docs/architecture/07-canonicalization-policy.md`.
+`docs/architecture/03-identity-and-canonicalization.md`.
 
 ## Risks
 
@@ -871,8 +881,10 @@ Mitigation:
 3. What exact fields belong in `LinkRecord` v1?
 4. Should old pack versions be retained forever, or can local development prune
    them while preserving published/demo packs?
-5. Which RDF edge-metadata strategy should be used: RDF-star or standard
-   reification?
+5. Decided (2026-07-04): RDF export uses RDF 1.2 named reifiers over triple
+   terms, one named graph per `ChangeWindow`; classic RDF 1.1 reification is
+   only a compatibility export. See
+   `docs/architecture/05-derived-views-and-rdf.md`.
 6. What redaction policy is required before publishing evidence packs derived
    from non-public repositories?
 

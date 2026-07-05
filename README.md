@@ -24,13 +24,19 @@ The current foundation is organized around:
 - `docs/evidence/03-claim-taxonomy.md`
 - `docs/validation/04-gastown-slice-acceptance.md`
 - `docs/validation/05-llama-cpp-validation-plan.md`
-- `docs/architecture/06-schema-draft.md`
-- `docs/architecture/07-canonicalization-policy.md`
-- `docs/plans/00-development-plan.md`
+- `docs/architecture/00-overview.md`
+- `docs/architecture/01-evidence-pack-pipeline.md`
+- `docs/architecture/02-temporal-model.md`
+- `docs/architecture/03-identity-and-canonicalization.md`
+- `docs/architecture/04-schema.md`
+- `docs/architecture/05-derived-views-and-rdf.md`
 - `docs/plans/00b-development-plan-evidence-first.md`
+- `docs/plans/00-development-plan.md` (historical, superseded)
 - `docs/plans/01-automated-reasoning-plan.md`
 - `docs/plans/02-data-engineering-infrastructure-plan.md`
-- `docs/handoffs/01-agent-handoff-prompt.md`
+- `docs/plans/03-phase-2-implementation-plan.md`
+- `docs/handoffs/00-general-handoff.md`
+- `docs/handoffs/2026-07-04-state-vs-change-evidence.md`
 
 ## Initial Target
 
