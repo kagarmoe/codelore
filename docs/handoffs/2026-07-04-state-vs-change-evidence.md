@@ -1,9 +1,16 @@
-# Handoff: State Evidence Versus Change Evidence
+# Handoff: Active Architecture Planning
 
-Use this prompt for the next CodeLore session.
+Use this prompt for the next CodeLore session when resuming the unresolved
+architecture planning from July 4, 2026.
 
 ```text
 You are taking over work in `/home/kimberly/repos/codelore`.
+
+Your task is not to implement immediately. Your task is to plan two related
+architecture issues carefully, review them, and then decide what documentation
+or implementation changes are warranted.
+
+## Orient First
 
 Start by reading:
 
@@ -17,8 +24,17 @@ Start by reading:
 8. `docs/architecture/04-schema.md`
 9. `docs/evidence/02-evidence-policy.md`
 10. `docs/evidence/03-claim-taxonomy.md`
+11. the current Data Systems review notes under `docs/reviews/`
 
-Then stop and focus on this architectural gap:
+Then inspect current repo state:
+
+```bash
+git status --short
+find docs/handoffs -maxdepth 1 -type f | sort
+find docs/architecture -maxdepth 2 -type f | sort
+```
+
+## Active Issue 1: State Evidence Versus Change Evidence
 
 CodeLore currently models change evidence better than state evidence.
 
@@ -38,7 +54,7 @@ If CodeLore focuses too much on changed lines, commits, and release-window
 membership, it may explain what changed without understanding what the resulting
 module, file, or function does.
 
-We need to examine whether the architecture should explicitly distinguish:
+Examine whether the architecture should explicitly distinguish:
 
 - change evidence: evidence that something changed in a window
 - state evidence: evidence of what code means, does, or is responsible for at a
@@ -68,36 +84,87 @@ Potential concepts to evaluate, not blindly adopt:
 - state-vs-change warrant types
 - start/end snapshot extraction as part of Phase 2 or Phase 3
 
-Do not implement immediately.
-
-Run a full planning/review cycle first. If the `superpowers` skills are
-available in the next session, use the appropriate full cycle. If not, emulate
-the same discipline:
-
-1. Restate the problem.
-2. Identify current architecture pressure points.
-3. Propose the smallest model change that handles state evidence.
-4. Review it with at least:
-   - Data Systems Reviewer
-   - Schema Skeptic
-   - Evidence Auditor
-   - Ontology Reviewer
-   - Repository Miner
-5. Decide whether this changes Phase 2, Phase 3, or only later phases.
-6. Only then update architecture/plans.
-
 Core question:
 
 How can CodeLore preserve evidence-backed historical change while also using
 code state as evidence for what modules, files, and functions did at a point in
 history?
 
-A likely rule to test:
+Likely rule to test:
 
 Claims about change can be supported by diff/window evidence.
 Claims about behavior, responsibility, or role require state evidence from the
 relevant code snapshot, plus an explicit warrant.
 
-Keep the Claim/Evidence/Warrant framing. Avoid introducing unclear ontology
-terms unless they earn their place.
+## Active Issue 2: Durable Log And Materialization
+
+Plan the durable log and materialization model before implementation goes much
+further.
+
+Recent Data Systems review discussion sharpened the issue:
+
+```text
+durable log -> materialized evidence pack -> derived views
+```
+
+The unresolved question is what belongs in CodeLore's durable log.
+
+The log must be rich enough to replay and migrate product state, but not so
+broad that it quietly becomes an ungoverned product database. Do not treat "log"
+as ordinary runtime logging. Treat it as the durable reconstruction substrate.
+
+Plan explicitly before treating pack migration as easy. Questions to settle
+include:
+
+- what counts as a log event
+- what goes in event payloads versus referenced content-addressed blobs
+- how raw git, forge, and generator snapshots are retained
+- how candidate creation, rejection, admission, validation, and pack emission
+  are represented
+- how event schemas are versioned and kept replay-compatible
+- whether pack records cite generating event IDs
+- how the evidence pack is materialized from a bounded log segment
+
+Recommended artifact:
+
+- a log-and-materialization architecture note reviewed by Data Systems, High
+  Assurance, and Schema lenses
+
+## Planning Process
+
+For each issue:
+
+1. Restate the problem in CodeLore terms.
+2. Identify current architecture pressure points.
+3. Propose the smallest model change that solves the problem.
+4. State what must remain deferred.
+5. Decide whether the change affects Phase 2, Phase 3, or only later phases.
+6. Review before editing architecture or implementation plans.
+
+If `superpowers` skills are available, use the appropriate full cycle. If not,
+emulate the same discipline.
+
+Minimum review lenses:
+
+- Data Systems Reviewer
+- Schema Skeptic
+- Evidence Auditor
+- High-Assurance Reviewer
+- Ontology Reviewer
+- Repository Miner
+
+## Output Discipline
+
+Do not implement immediately.
+
+Do not introduce unclear ontology terms unless they earn their place.
+
+Keep the Claim/Evidence/Warrant framing.
+
+Expected outputs:
+
+- one planning note or architecture draft for state-vs-change evidence
+- one planning note or architecture draft for durable log/materialization
+- review reports in `docs/reviews/`
+- only then, any architecture or plan updates justified by the review
 ```

@@ -653,10 +653,44 @@ Use for:
 Treat every representation as a derived view of an authoritative source, and
 every paradigm choice as a workload question.
 
+Do not accept the artifact's own "source of truth" language at face value.
+First reconstruct the data authority stack. In particular, distinguish:
+
+- the **system of record**: the durable source from which state can be
+  reconstructed, often an append-only log or immutable source corpus
+- **materialized product state**: validated state built for product use, such as
+  a pack, snapshot, index, table set, or read model
+- **derived serving views**: query, graph, search, cache, export, dashboard, or
+  interoperability projections
+
+When the review context invokes log-based architecture, event sourcing,
+replayability, auditability, migration, or "Turning the Database Inside-Out,"
+make this distinction the first-order question. Do not collapse "canonical for
+users" into "deepest source of truth."
+
+In a database-inside-out review, insist on the central rule explicitly:
+
+```text
+The durable log is the system of record. Everything else is a materialization.
+```
+
+If the artifact names a database, evidence pack, graph, search index, export,
+dashboard, or read model as "the source of truth," challenge that wording unless
+it also identifies the durable log or immutable input corpus that can recreate
+that state.
+
 Work by:
 
-- identifying the true source of truth and its evolution story
+- identifying the true system of record and its evolution story
+- separating system-of-record authority from materialized product authority and
+  serving-view authority
+- asking whether there is a durable event/log/source corpus that can recreate
+  the current state
 - checking that derived views are rebuildable, idempotent, and versioned
+- checking that materialized state can be regenerated or migrated from the
+  system of record
+- checking that event schemas, log compatibility, replay semantics, and
+  projection boundaries are explicit when replay is promised
 - translating representational promises into their real modeling and
   query-layer costs today
 - sizing the workload before judging the engine
@@ -668,11 +702,19 @@ promise.
 
 ### Main questions
 
-- What is the source of truth, and how does it evolve without breaking
-  readers?
+- What is the system of record, and how does it evolve without breaking
+  readers or replay?
+- What is merely a materialized view, even if the product treats it as
+  canonical?
+- Can the current state be rebuilt from a durable log, immutable corpus, or
+  other authoritative input?
+- Are event/log schemas versioned, stable, and semantically meaningful enough
+  for replay and migration?
 - Which workload does this engine choice actually serve?
 - What does this cross-paradigm promise cost in the data model, today?
 - Is the derived view rebuildable and idempotent?
+- Are migrations primary data rewrites, or projections from the system of
+  record into a new materialized shape?
 - Where does this design hit its scale wall, and is the bound written down?
 
 ### Style guidance
@@ -689,6 +731,7 @@ Traits:
 Keep the voice light:
 
 - "This is event sourcing that has not admitted it yet."
+- "This calls the read model the source of truth; where is the log?"
 - "The engine is replaceable; the query language is where the coupling lives."
 
 Avoid:
@@ -699,8 +742,8 @@ Avoid:
 ### Bibliography
 
 - Martin Kleppmann, *Designing Data-Intensive Applications* (2017) — derived views over authoritative data; paradigm chosen by workload.
-- Martin Kleppmann, "Turning the Database Inside-Out" (2014) — the log as source of truth, everything else a materialized view.
-- For CodeLore: pack-as-source-of-truth with a rebuildable graph and exports is this doctrine applied; the semantics-versus-engine split and the "queries are where coupling lives" rule follow from it.
+- Martin Kleppmann, "Turning the Database Inside-Out" (2014) — the log as system of record; databases, indexes, caches, graphs, search, exports, and application read models as materialized views.
+- For CodeLore: distinguish the durable reconstruction log from the evidence pack and derived views. The pack may be canonical product state, but the log is the deeper replay and migration authority. The semantics-versus-engine split and the "queries are where coupling lives" rule follow from this.
 
 ## Plan Skeptic (Brooks)
 

@@ -49,6 +49,11 @@ Prefer the README and directory contents over stale handoff assumptions. If a
 handoff points to a moved file, locate the current equivalent rather than
 stopping.
 
+Install Beads before planning or implementation if it is not already available
+in the environment. Use the current Beads install instructions rather than a
+remembered command, then initialize or inspect the repo's Beads issue state as
+appropriate.
+
 ## Current Architectural Commitments
 
 Preserve these commitments unless a reviewed architecture update changes them:
