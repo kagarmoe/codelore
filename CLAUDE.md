@@ -128,16 +128,6 @@ Read these first when orienting to the repo:
 - `docs/architecture/04-schema.md`
 - `docs/architecture/05-derived-views-and-rdf.md`
 
-## Local Skills
-
-Project-local skills live in `.claude/skills/`.
-
-Current transferable skills:
-
-- `review-personas`
-- `compact-recovery`
-- `closing-sessions`
-
 ## Graphify
 
 Graphify is optional developer tooling for agent codebase navigation. It is not
